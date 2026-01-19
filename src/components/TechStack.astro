@@ -1,0 +1,114 @@
+---
+import Section from "./Section.astro";
+
+const techStacks = [
+  {
+    category: "Languages",
+    items: [
+      { name: "C", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
+      { name: "C++", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
+      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+      { name: "Go", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" },
+    ]
+  },
+  {
+    category: "Backend & Web",
+    items: [
+      { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+      { name: "Express.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+      { name: "React.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+      { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+      { name: "REST APIs", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
+      { name: "WebSockets", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg" },
+    ]
+  },
+  {
+    category: "Databases & Infrastructure",
+    items: [
+      { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+      { name: "SQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+      { name: "Redis", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" },
+      { name: "Kafka", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apachekafka/apachekafka-original.svg" },
+      { name: "Prisma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg" },
+      { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+      { name: "CDN", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cloudflare/cloudflare-original.svg" },
+      { name: "Cloudinary", icon: "https://res.cloudinary.com/demo/image/upload/cloudinary_icon.png" },
+      { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+    ]
+  },
+  {
+    category: "Concepts & AI",
+    items: [
+      { name: "DSA", icon: "https://cdn-icons-png.flaticon.com/512/1312/1312505.png" },
+      { name: "OOPs", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+      { name: "OS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
+      { name: "DBMS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+      { name: "Networks", icon: "https://cdn-icons-png.flaticon.com/512/2920/2920277.png" },
+      { name: "Microservices", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
+      { name: "TensorFlow", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
+      { name: "Gemini AI", icon: "https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" },
+    ]
+  }
+];
+---
+
+<Section text="Tech Stack" href="techstack">
+  <div class="space-y-12">
+    {techStacks.map((stack) => (
+      <div class="group">
+        {/* Category Header */}
+        <div class="mb-6 flex items-center gap-3">
+          <div class="h-1 w-12 rounded-full bg-gradient-to-r from-primary to-primary/30"></div>
+          <h3 class="font-serif text-2xl font-medium text-white">
+            {stack.category}
+          </h3>
+        </div>
+
+        {/* Tech Items Grid */}
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          {stack.items.map((tech) => (
+            <div class="group/item relative overflow-hidden rounded-2xl border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-950 p-4 transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
+              {/* Icon Container */}
+              <div class="mb-3 flex h-16 items-center justify-center">
+                <img 
+                  src={tech.icon} 
+                  alt={tech.name}
+                  class="h-12 w-12 object-contain transition-transform duration-300 group-hover/item:scale-110 filter brightness-90 group-hover/item:brightness-110"
+                />
+              </div>
+
+              {/* Tech Name */}
+              <p class="text-center text-sm font-medium text-neutral-300 group-hover/item:text-white transition-colors">
+                {tech.name}
+              </p>
+
+              {/* Hover Gradient */}
+              <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover/item:opacity-100 pointer-events-none"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  {/* Optional: Tech Stack Stats */}
+  <div class="mt-16 grid grid-cols-2 gap-6 rounded-2xl border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-950 p-8 md:grid-cols-4">
+    <div class="text-center">
+      <div class="text-3xl font-bold text-primary">5+</div>
+      <div class="mt-1 text-sm text-neutral-400">Languages</div>
+    </div>
+    <div class="text-center">
+      <div class="text-3xl font-bold text-primary">6+</div>
+      <div class="mt-1 text-sm text-neutral-400">Frameworks</div>
+    </div>
+    <div class="text-center">
+      <div class="text-3xl font-bold text-primary">9+</div>
+      <div class="mt-1 text-sm text-neutral-400">Tools & DBs</div>
+    </div>
+    <div class="text-center">
+      <div class="text-3xl font-bold text-primary">4+</div>
+      <div class="mt-1 text-sm text-neutral-400">AI & Concepts</div>
+    </div>
+  </div>
+</Section>

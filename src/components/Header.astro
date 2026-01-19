@@ -1,0 +1,169 @@
+---
+import Menu from "@icons/Menu.astro";
+import { Image } from "astro:assets";
+import type { HeaderProps } from "@types";
+
+type Props = HeaderProps;
+
+const { siteLogo, navLinks } = Astro.props;
+
+// Add Tech Stack to navigation links if not already present
+const allNavLinks = [
+  { text: "Experience", href: "#experience" },
+  { text: "Tech Stack", href: "#techstack" },
+  { text: "Projects", href: "#projects" },
+  { text: "About", href: "#about" }
+];
+---
+
+<header
+  class="sticky top-0 z-50 mx-auto flex max-w-5xl items-center justify-between border-b border-neutral-800/50 bg-black/90 px-5 py-4 backdrop-blur-md animate-slide-in"
+>
+  <!-- Logo -->
+  <a href="/" aria-label="Home link" class="flex items-center">
+    <Image
+      class="h-12 w-12 rounded-full object-cover ring-2 ring-primary/20 transition-all duration-300 hover:ring-primary/50 hover:scale-105"
+      src={siteLogo}
+      width="48"
+      height="48"
+      alt="website logo"
+    />
+  </a>
+
+  <!-- Mobile Menu Button -->
+  <button
+    type="button"
+    id="menu-button"
+    class="p-2 text-neutral transition-colors hover:text-white sm:hidden"
+    aria-expanded="false"
+    aria-controls="main-menu"
+    aria-label="Toggle navigation menu"
+  >
+    <Menu />
+  </button>
+
+  <!-- Navigation -->
+  <nav
+    class="absolute top-20 right-5 hidden w-48 rounded-xl border border-neutral-700 bg-neutral-900/95 px-4 py-4 shadow-xl backdrop-blur-md sm:static sm:block sm:w-auto sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none"
+    id="main-menu"
+  >
+    <ul class="flex flex-col gap-1 sm:flex-row sm:gap-1">
+      {
+        allNavLinks.map((link) => (
+          <li class="relative">
+            <a
+              class="nav-item relative block rounded-lg px-4 py-2.5 text-sm font-medium text-neutral transition-all duration-300 hover:bg-neutral-800/50 hover:text-white sm:hover:bg-transparent sm:after:absolute sm:after:bottom-0 sm:after:left-1/2 sm:after:h-2 sm:after:w-1 sm:after:-translate-x-1/2 sm:after:text-primary sm:after:opacity-0 sm:after:transition-opacity sm:after:duration-300 sm:after:content-['•']"
+              href={link.href}
+            >
+              {link.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  // Toggle mobile menu
+  const button = document.querySelector("#menu-button") as HTMLButtonElement;
+  const menu = document.querySelector("#main-menu") as HTMLElement;
+  const navItems = document.querySelectorAll(".nav-item") as NodeListOf<HTMLAnchorElement>;
+
+  const toggleMenu = () => {
+    menu?.classList.toggle("hidden");
+    const isHidden = menu?.classList.contains("hidden");
+    button?.setAttribute("aria-expanded", `${!isHidden}`);
+  };
+
+  // Toggle menu on button click
+  button?.addEventListener("click", toggleMenu);
+  
+  // Close menu when clicking nav items on mobile
+  navItems.forEach((item) => {
+    item?.addEventListener("click", () => {
+      if (window.innerWidth < 640 && !menu?.classList.contains("hidden")) {
+        toggleMenu();
+      }
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    if (!button?.contains(target) && !menu?.contains(target)) {
+      if (!menu?.classList.contains("hidden") && window.innerWidth < 640) {
+        toggleMenu();
+      }
+    }
+  });
+
+  // Update navigation based on scroll position with Intersection Observer
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navItems.forEach((item) => {
+            const href = item.getAttribute("href");
+            if (href === `#${entry.target.id}`) {
+              item.classList.add("text-white", "sm:after:opacity-100");
+              item.classList.remove("text-neutral");
+            } else {
+              item.classList.remove("text-white", "sm:after:opacity-100");
+              item.classList.add("text-neutral");
+            }
+          });
+        }
+      });
+    },
+    { 
+      threshold: 0.3,
+      rootMargin: "-20% 0px -35% 0px"
+    },
+  );
+
+  // Observe all sections with IDs
+  const observeSections = () => {
+    const sections = document.querySelectorAll("section[id]");
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+  };
+
+  // Initial observation after DOM is fully loaded
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", observeSections);
+  } else {
+    observeSections();
+  }
+
+  // Cleanup observer on visibility change
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      observer.disconnect();
+    } else {
+      observeSections();
+    }
+  });
+
+  // Handle smooth scrolling
+  navItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      const href = item.getAttribute("href");
+      if (href?.startsWith("#")) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  header {
+    animation-timeline: scroll();
+    animation-range: 0 650px;
+  }
+</style>

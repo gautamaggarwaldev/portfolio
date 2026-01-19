@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-white;
+  }
+}
+
+@layer utilities {
+  .border-neutral-800\/50 {
+    border-color: rgba(30, 41, 59, 0.5);
+  }
+  
+  .ring-primary\/20 {
+    --tw-ring-color: rgba(37, 99, 235, 0.2);
+  }
+  
+  .ring-primary\/50 {
+    --tw-ring-color: rgba(37, 99, 235, 0.5);
+  }
+}
+
