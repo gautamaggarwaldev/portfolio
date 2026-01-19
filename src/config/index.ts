@@ -87,6 +87,13 @@ export const SITE_CONTENT: SiteContent = {
       image: "/3.png",
     },
     {
+      name: "ICCICT 2026",
+      summary: "ICCICT conference website enabling researcher registration, paper submission, and seamless management of international academic events with a modern, user-friendly interface.",
+      linkPreview: "https://iccict.org/",
+      linkSource: "https://github.com/gautamaggarwaldev/ICMMCS-2025",
+      image: "/7.png",
+    },
+    {
       name: "Stock Price Prediction Web App",
       summary: "Machine learning-powered web app that fetches real-time stock data, visualizes trends, and predicts future prices using AI models.",
       linkPreview: "https://dorafinance-pp-gg.streamlit.app/",
@@ -96,14 +103,14 @@ export const SITE_CONTENT: SiteContent = {
     {
       name: "Wordle Game",
       summary: "React-based Wordle game with interactive UI, real-time letter validation, and engaging gameplay mechanics",
-      linkPreview: "https://content-core.netlify.app/",
+      linkPreview: "https://wordle-game-smoky-seven.vercel.app/",
       linkSource: "https://github.com/gautamaggarwaldev/Wordle-Game",
       image: "/2.png",
     },
     {
       name: "Content Management System",
       summary: "Interactive content management platform where users can create text posts while others can like, comment, and engage in real-time discussions.",
-      linkPreview: "https://dorafinance-pp-gg.streamlit.app/",
+      linkPreview: "https://content-core.netlify.app/",
       linkSource: "https://github.com/gautamaggarwaldev/CMS",
       image: "/6.png",
     },
